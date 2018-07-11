@@ -1,0 +1,131 @@
+#include"egg.h"
+void TrainAmove()
+{	SetActiveEgg(a1);
+	if(A.location==0)
+		 MoveEgg(2.5, 12.5);
+	if(A.location==1)
+		 MoveEgg(3.5, 12.5);
+	if(A.location==2)
+		 MoveEgg(4.5, 12.5);
+	if(A.location==3)
+		 MoveEgg(5.5, 12.5);
+	if(A.location==4)
+		 MoveEgg(6.5, 12.5);
+	if(A.location==5)
+		 MoveEgg(7.5, 12.5);
+	if(A.location==6)
+		 MoveEgg(8.5, 12.5);
+	if(A.location==7)
+		 MoveEgg(9.5, 12.5);
+	if(A.location==8)
+		 MoveEgg(10.5, 12.5);
+	if(A.location==9)
+		 MoveEgg(11.5, 12.5);
+	if(A.location==10)
+		 MoveEgg(12.5, 12.5);
+	if(A.location==11)
+		 MoveEgg(12.5, 11.5);
+	if(A.location==12)
+		 MoveEgg(12.5, 10.5);
+	if(A.location==13)
+		 MoveEgg(12.5, 9.5);
+	if(A.location==14)
+		 MoveEgg(12.5, 8.5);
+	if(A.location==15)
+		 MoveEgg(12.5, 7.5);
+	if(A.location==16)
+		 MoveEgg(11.5, 7.5);
+	if(A.location==17)
+		 MoveEgg(10.5, 7.5);
+	if(A.location==18)
+		 MoveEgg(9.5, 7.5);
+	if(A.location==19)
+		 MoveEgg(8.5, 7.5);
+	if(A.location==20)
+		 MoveEgg(7.5, 7.5);
+	if(A.location==21)
+		 MoveEgg(6.5, 7.5);
+	if(A.location==22)
+		 MoveEgg(5.5, 7.5);
+	if(A.location==23)
+		 MoveEgg(4.5, 7.5);
+	if(A.location==24)
+		 MoveEgg(3.5, 7.5);
+	if(A.location==25)
+		 MoveEgg(2.5, 7.5);
+	if(A.location==26)
+		 MoveEgg(2.5, 8.5);
+	if(A.location==27)
+		 MoveEgg(2.5, 9.5);
+	if(A.location==28)
+		 MoveEgg(2.5, 10.5);
+	if(A.location==29)
+		 MoveEgg(2.5, 11.5);
+
+}
+
+void TrainBmove()
+{		SetActiveEgg(b1);
+	if(B.location==00)
+		MoveEgg(17.5,12.5);
+	if(B.location==1)
+		MoveEgg(16.5,12.5);
+	if(B.location==2)
+		MoveEgg(15.5,12.5);
+	if(B.location==3)
+		MoveEgg(14.5,12.5);
+	if(B.location==4)
+		MoveEgg(13.5,12.5);
+	if(B.location==5)
+		MoveEgg(12.5,12.5);
+	if(B.location==6)
+		MoveEgg(12.5,11.5);
+	if(B.location==7)
+		MoveEgg(12.5,10.5);	
+    if(B.location==8)
+		MoveEgg(12.5,9.5);	
+	if(B.location==9)
+		MoveEgg(12.5,8.5);
+	if(B.location==10)
+		MoveEgg(12.5,7.5);	
+	if(B.location==11)
+		MoveEgg(12.5,6.5);	
+	if(B.location==12)
+		MoveEgg(12.5,5.5);	
+	if(B.location==13)
+		MoveEgg(12.5,4.5);	
+	if(B.location==14)
+		MoveEgg(12.5,3.5);	
+	if(B.location==15)
+		MoveEgg(12.5,2.5);	
+	if(B.location==16)
+		MoveEgg(13.5,2.5);	
+	if(B.location==17)
+		MoveEgg(14.5,2.5);	
+	if(B.location==18)
+		MoveEgg(15.5,2.5);	
+	if(B.location==19)
+		MoveEgg(16.5,2.5);	
+	if(B.location==20)
+		MoveEgg(17.5,2.5);	
+	if(B.location==21)
+		MoveEgg(17.5,3.5);	
+	if(B.location==22)
+		MoveEgg(17.5,4.5);	
+	if(B.location==23)
+		MoveEgg(17.5,5.5);	
+	if(B.location==24)
+		MoveEgg(17.5,6.5);	
+	if(B.location==25)
+		MoveEgg(17.5,7.5);
+	if(B.location==26)
+		MoveEgg(17.5,8.5);	
+	if(B.location==27)
+		MoveEgg(17.5,9.5);
+	if(B.location==28)
+		MoveEgg(17.5,10.5);	
+	if(B.location==29)
+		MoveEgg(17.5,11.5);
+		
+}
+

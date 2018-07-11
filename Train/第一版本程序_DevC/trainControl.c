@@ -1,0 +1,485 @@
+#include"varible.h" 
+#include<stdio.h>
+#include<windows.h>
+#include"output.h" 
+void Light()//改变探测灯亮灭（图形化可能用到，命令行未用） 
+{	
+
+	while(1)
+     { Light1State=00;
+       Light2State=00;
+       Light3State=00;
+       Light4State=00;
+       Light5State=00;
+       Light6State=00;
+       Light7State=00;
+       Light8State=00;
+	   if(A.location==Light1loc)
+          Light1State=01;
+       if(A.location==Light2loc)
+          Light2State=01;
+        if(A.location==Light3loc)
+          Light3State=01;
+        if(A.location==Light4loc)
+          Light4State=01;
+		if(B.location==Light5loc)
+          Light5State=01;
+		if(B.location==Light6loc)
+          Light6State=01;
+		if(C.location==Light7loc)
+          Light7State=01;
+        if(C.location==Light8loc)
+          Light8State=01;
+      }
+ } 
+
+
+DWORD WINAPI Input(LPVOID lpParameter)
+{	
+	while(1)
+	{
+		int m,n,p;
+		if(A.Circle==0)//A顺逆时针的判断
+	    {
+		    m=A.location+A.speed;//顺时针
+     	}
+	    else
+	    {
+		    m=A.location-A.speed;//逆时针
+	    }
+	    if(B.Circle==1)//B顺逆时针的判断
+	    {
+		    n=B.location+B.speed;//逆时针
+	    }
+	    else
+	    {
+		    n=B.location-B.speed;//顺时针
+	    }
+	    if(C.Circle==1)//C顺逆时针的判断
+	    {
+		    p=C.location+C.speed;//逆时针
+	    }
+	    else
+	    {
+		    p=C.location-C.speed;//顺时针
+	    }
+		char command;
+		scanf("%c",&command);
+		if(command==65)//用户指令为A 
+		{
+			A.control=1;
+			A.state=0;//A状态置为停 
+		
+			printChange();//输出当前时刻状态 
+		}
+		if(command==66)//用户指令为B 
+		{
+			B.control=1;
+			B.state=0;//B状态置为停 
+			printChange();//输出当前时刻状态 
+		}
+		if(command==67) //用户指令为 C 
+		{
+			C.control=1;
+			C.state=0;//C状态置为停 
+			printChange();//输出当前时刻状态 
+		}
+		if(command==97)//用户指令为a 
+		{
+			if((B.location>5&&B.location<11)&&(m>10&&m<16))//B在公共轨道里 
+			{
+				printf("前方轨道被占用！！A不能走！！\n");
+			}
+			else if((C.location>12&&C.location<20)&&(m>18&&m<26))//C在公共轨道里 
+			{
+				printf("前方轨道被占用！！A不能走！！\n");
+			}
+			else
+			{
+			    A.control=0;
+			    A.state=1;//A状态置为运行 
+			    printChange();//输出当前时刻状态 
+			}
+		}
+		if(command==98)//用户指令为b 
+		{
+			if((A.location>10&&A.location<16)&&(n>5&&n<11))//A在公共轨道里 
+			{
+				printf("前方轨道被占用！！B不能走！！\n");
+			}
+			else
+			{
+			    B.control=0;
+			    B.state=1;//B状态置为运行 
+			    printChange();//输出当前时刻状态 
+		    }
+		}
+		if(command==99)//用户指令为c 
+		{
+			if((A.location>18&&A.location<26)&&(p>12&&p<20))//A在公共轨道里 
+			{
+				printf("前方轨道被占用！！C不能走！！");
+			}
+			else
+			{
+			    C.control=0;
+			    C.state=1;//C状态置为运行 
+			    printChange();//输出当前时刻状态 
+		    }
+		}
+   }
+}
+
+
+DWORD WINAPI TrainA(LPVOID IpParameter)//控制A的线程 
+{	while(1)
+{   if(A.control==1)//用户控制为停 
+    {
+    	A.state=0;
+    	
+	}	
+    else
+	{
+    	int m,n,p,switch_AB=0,switch_AC=0;//定义整数类型变量m,n,p,并初始化或恢复开关的状态
+	    if(count<=A.startTime)//判断是否需要初始化A火车的状态
+	    {
+		    A.location=A.startLoc;//初始化A的状态
+		    A.state=0;
+	    }
+	    if(count<=B.startTime)//判断是否需要初始化B火车的状态
+	    {
+		    B.location=B.startLoc;//初始化B的状态
+		    B.state=0;
+	    }
+	    if(count<=C.startTime)//判断是否需要初始化C火车的状态
+	    {
+		    C.location=C.startLoc;//初始化C的状态
+		    C.state=0;
+	    }
+	    if(A.Circle==0)//A顺逆时针的判断
+	    {
+		    m=A.location+A.speed;//顺时针
+     	}
+	    else
+	    {
+		    m=A.location-A.speed;//逆时针
+	    }
+	    if(m>=30)//顺时针情况下，判断火车是否将走满一圈
+    	{
+	    	m=m-30;
+    	}
+	    if(m<0)//逆时针情况下，判断火车是否将走满一圈
+	    {
+		    m=m+30;
+	    }
+	    if(B.Circle==1)//B顺逆时针的判断
+	    {
+		    n=B.location+B.speed;//逆时针
+	    }
+	    else
+	    {
+		    n=B.location-B.speed;//顺时针
+	    }
+	    if(n>=30)//逆时针情况下，判断火车是否将走满一圈
+	    {
+		    n=n-30;
+	    }
+	    if(n<0)//顺时针情况下，判断火车是否将走满一圈
+	    {
+		    n=n+30;
+	    }	
+	    if(C.Circle==1)//C顺逆时针的判断
+	    {
+		    p=C.location+C.speed;//逆时针
+	    }
+	    else
+	    {
+		    p=C.location-C.speed;//顺时针
+	    }
+	    if(p>=24)//逆时针情况下，判断火车是否将走满一圈
+	    {
+		    p=p-24;
+	    }
+	    if(p<0)//顺时针情况下，判断火车是否将走满一圈
+	    {
+		    p=p+24;
+	    }
+		Sleep(100);
+	    if(count>A.startTime)//判断A火车是否开始运动
+    	{
+		    A.state=1;//一般情况下火车运动
+		    if(m>10&&m<16)//判断A是否会进入AB公共轨道
+		    {
+			    if(A.location>=16||A.location<=10) 
+		    	{
+				    switch_AB=1;//A将进入AB轨道的开关开启
+		    	}
+			    if(B.location>5&&B.location<11)//判断B是否占用公共轨道
+			    {
+				    A.state=0;//由于AB公共轨道被占用，A状态变为静止
+			    }
+			    if(n>5&&n<11&&AB==0)//判断B下一秒是否进入AB公共轨道
+			    {	if(A.location>=16||A.location<=10) //如果A不在公共轨道里 
+				    {if((priority1(A.speed,B.speed))==0)//调用优先原则 
+				    	{	//已执行优先策略 （防止线程冲突执行两遍） 
+                        	A.state=0;
+				    	}
+					} 
+			    }
+		    }
+		    if(m>18&&m<26)//判断A是否会进入AC公共轨道
+		    {
+			    if(A.location>=26||A.location<=18) 
+			    {
+				    switch_AC=1;//A火车将进入AC公共轨道的开关开启
+			    }
+			    if(C.location>12&&C.location<20)//判断C是否占用公共轨道
+			    {
+				    A.state=0;//由于AC公共轨道被占用，A状态变为静止
+			    }
+			    if(p>12&&p<20&&AC==0)//判断C下一秒是否进入AC公共轨道
+			    {	if(A.location>=26||A.location<=18)//如果A不在公共轨道里 
+				    {if((priority1(A.speed,C.speed))==0)//调用优先原则 
+				    {	//已执行优先策略 
+                        A.state=0;
+				    }
+				    
+					}
+			    }
+		    } 
+	    }
+	    if(A.state==1)//火车是否为运动状态
+	    {
+		    if(switch_AB==1&&StayTime!=0)//在停止时间不为0的情况下，判断火车是否将进入AB公共轨道
+		    {
+			    A.location=13;
+				AStayStart=clock();//火车直接停在AB轨道中间
+			    Sleep(StayTime*1000-100);//火车停靠
+		    }
+		    else if(switch_AC==1&&StayTime!=0)
+		    {
+			    A.location=22;//火车直接停在AC轨道中间
+				A.state=0;
+				AStayStart=clock();//用于判断剩余停靠时间 
+			    Sleep(StayTime*1000-100);//火车停靠
+		    }
+	 
+		    else
+		    {
+			    A.location=m;//A正常行驶
+			    Sleep(900);
+		    }
+	    }
+	    else
+	    {
+		    A.location=A.location;
+		    Sleep(900);
+	    }
+    }
+}
+} 
+DWORD WINAPI TrainB(LPVOID IpParameter)//控制B车的线程 
+{while(1)
+{
+    if(B.control==1)
+    {
+    	B.state=0;
+	}
+	else{
+			int m,n,switch_AB=0;
+			AB=0;
+	if(count<=A.startTime)//初始化A车 
+	{
+		A.location=A.startLoc;
+		A.state=0;
+	}
+	if(count<=B.startTime)//初始化B车 
+	{
+		B.location=B.startLoc;
+		B.state=0;
+	}
+	if(A.Circle==0)//A顺逆时针的判断
+	{
+		m=A.location+A.speed;
+	}
+	else
+	{
+		m=A.location-A.speed;
+	}
+	if(m>=30)//顺时针情况下，判断火车是否将走满一圈
+	{
+		m=m-30;
+	}
+	if(m<0)//逆时针情况下，判断火车是否将走满一圈
+	{
+		m=m+30;
+	}	
+	if(B.Circle==1)//B顺逆时针的判断
+	{
+		n=B.location+B.speed;
+	}
+	else
+	{
+		n=B.location-B.speed;
+	}
+	if(n>=30)//逆时针情况下，判断火车是否将走满一圈
+	{
+		n=n-30;
+	}
+	if(n<0)//顺时针情况下，判断火车是否将走满一圈
+	{
+		n=n+30;
+	}		
+	if(count>B.startTime)//判断B火车是否开始运动
+	{
+		B.state=1;//一般情况下火车运动
+		if(n>5&&n<11)//判断B是否会进入AB公共轨道
+		{
+			if(B.location>=11||B.location<=5)
+			{
+				switch_AB=1;
+			}
+			if(A.location>10&&A.location<16)//判断A是否占用公共轨道
+			{
+			    B.state=0;
+			}
+			if(m>10&&m<16)//判断A下一秒是否进入AB公共轨道
+			{	if(B.location>=11||B.location<=5)//如果B不在公共轨道 
+				{if((priority1(A.speed,B.speed))==1)//调用优先策略 
+				{	
+                    B.state=0; 
+                    AB=1;
+				}
+				}
+			}
+		}
+	}
+	if(B.state==1)//火车是否为运动状态
+	{
+		if(switch_AB==1&&StayTime!=0)//在停止时间不为0的情况下，判断火车是否将进入AB公共轨道
+		{
+			B.location=8;//B车停在AB轨道中间 
+			BStayStart=clock();//用于判断剩余停靠时间 
+			B.state=0;
+			Sleep(StayTime*1000);//停靠 
+		}
+		else
+		{
+			B.location=n;
+			Sleep(1000);
+		}
+	}
+	else
+	{
+		B.location=B.location;
+		Sleep(1000);
+	}
+		
+	}
+
+	}
+}
+
+DWORD WINAPI TrainC(LPVOID IpParameter)//控制C的火车 
+{while(1)
+{
+    if(C.control==1)
+    {
+    	C.state=0;
+	}
+	else
+	{	int m,q,switch_AC=0;
+	AC=0;
+	if(count<=A.startTime)//初始化A车 
+	{
+		A.location=A.startLoc;
+		A.state=0;
+	}
+	if(count<=C.startTime)//初始化C车 
+	{
+		C.location=C.startLoc;
+		C.state=0;
+	}
+	if(A.Circle==0)//A顺逆时针的判断
+	{
+		m=A.location+A.speed;
+	}
+	else
+	{
+		m=A.location-A.speed;
+	}
+	if(m>=30)//顺时针情况下，判断火车是否将走满一圈
+	{
+		m=m-30;
+	}
+	if(m<0)//逆时针情况下，判断火车是否将走满一圈
+	{
+		m=m+30;
+	}	
+	if(C.Circle==1)//C顺逆时针的判断
+	{
+		q=C.location+C.speed;
+	}
+	else
+	{
+		q=C.location-C.speed;
+	}
+	if(q>=24)//逆时针情况下，判断火车是否将走满一圈
+	{
+		q=q-24;
+	}
+	if(q<0)//顺时针情况下，判断火车是否将走满一圈
+	{
+		q=q+24;
+	}	
+	if(count>C.startTime)//判断C火车是否开始运动
+	{
+		C.state=1;
+		if(q>12&&q<20)//判断C是否会进入AC公共轨道
+		{
+			if(C.location>=20||C.location<=12)
+			{
+				switch_AC=1;
+			}				
+			if(A.location>18&&A.location<26)//判断A是否占用公共轨道
+		    {
+			    C.state=0;
+		    }
+		    if(m>18&&m<26)//判断A下一秒是否进入AC公共轨道
+		    {	if(C.location>=20||C.location<=12)//如果C不在公共轨道 
+		    	{
+				
+			    if((priority1(A.speed,C.speed))==1)//判判断是快车优先还是慢车优先
+			    {
+                    C.state=0;
+                    AC=1;
+			    }
+				}
+		    }
+		}
+    }
+	if(C.state==1)//火车是否为运动状态
+	{
+		if(switch_AC==1&&StayTime!=0)//在停止时间不为0的情况下，判断火车是否将进入AC公共轨道
+		{
+			C.location=16;//C停在AC公共轨道之间 
+			CStayStart=clock();
+			C.state=0;
+			Sleep(StayTime*1000);
+		}
+		else
+		{
+			C.location=q;
+			Sleep(1000);
+		}
+    }
+    else
+    {
+    	C.location=C.location;
+    	Sleep(1000);
+	}
+		
+	}
+
+    }
+}
