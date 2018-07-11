@@ -1,0 +1,6 @@
+/**mytype.h*/
+const int playerNum = 150;
+const int adminNum = 100;
+const int wordNum = 200; 
+
+
