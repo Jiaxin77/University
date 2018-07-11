@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>question</title>
+    <link href="/static/libs/bootstrap/2.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/2.0.0/js/bootstrap.min.js"></script>
+    <style type="text/css">
+      .reply{
+      width:600px;
+      height:120px;
+      }
+
+    </style>
+    <script>
+        $(document).ready(function(){
+            var status = $('#buttonstatus').val();
+            var lis = document.getElementById('buttonfollow');
+            console.log(status);
+            if(status == '0'){
+                $('#buttonfollow').text('+关注');
+                var inner = $('#buttonfollow').val();
+                console.log(inner);
+                lis.style.class='label label-info';
+
+            }
+            else if(status == '1'){
+                $('#buttonfollow').text('已关注');
+                lis.style.class='label label-default disabeld';
+            }
+
+            $("#buttonfollow").click(function(){
+                    if( $("#buttonfollowedid").val() != $("#buttonfollowerid").val()&& $('#buttonstatus').val()==0 ){
+                    $.ajax({
+                        type:"POST",
+                        url:"/follow/",
+                        data:{followedid:$("#buttonfollowedid").val(),followerid:$("#buttonfollowerid").val()},
+                        success:function(data,status){
+                            $('#buttonqid').val(data.status);
+                            if(data.status == '0'){
+                                $('#buttonfollow').text('+关注');
+                                var inner = $('#buttonfollow').val();
+                                console.log(inner);
+                                lis.style.class='label label-info';
+
+                            }
+                            else if(data.status == '1'){
+                                $('#buttonfollow').text('已关注');
+                                $('#buttonstatus').val('1')
+                                lis.style.class='label label-default disabeld';
+                            }
+                        },
+                    });
+
+                }
+
+            });
+
+
+        });
+
+
+
+
+    </script>
+</head>
+<body background="/static/img/背景.png">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <img alt="140x140" src="/static/img/标头.jpg"/>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span1">
+        </div>
+        <div class="span6">
+            <legend>
+                <h3>
+                    {{q.title}}
+                </h3>
+
+                <h4>
+                    {{q.content}}
+                </h4>
+                <br/>
+                <div class="row-fluid">
+                    <div align="left" class="span6">
+                        <h4>
+                            <small>提问者：{{q.authorname}}</small>
+                            <button id="buttonfollow" type="button" class="label label-info" data-toggle="modal">+关注
+                            </button>
+                            <input type="hidden" id="buttonstatus" value="{{status}}"/>
+                            <input type="hidden" id="buttonfollowedid" value="{{q.author.user.id}}"/>
+                            <input type="hidden" id="buttonfollowerid" value="{{userid}}"/>
+                            <input type="hidden" id="buttonqid" value="{{q.id}}"/>
+                        </h4>
+                    </div>
+                    <div align="right" class="span4">
+                        <a href="#answer" type="submit" class="btn btn-primary btn-xs" background="white">写回答</a>
+                    </div>
+                    <div>
+                        <h4 align="right" class="span2">
+                            <small>浏览：{{q.viewscount}}次</small>
+                        </h4>
+                    </div>
+                </div>
+            </legend>
+        </div>
+        <div class="span5">
+        </div>
+        <div class="span1">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span1">
+        </div>
+        <div class="span6">
+            {%for c in list %}
+            <legend>
+                <h4>
+                    {{c.answer}}
+                </h4>
+                <h5 class="text-right">
+                    <small>回答者：{{c.nickname}}</small>
+                </h5>
+            </legend>
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                <div id="answer">
+                    {{obj.answer}}
+                </div>
+                <div style="margin-left:280px;magrin-top:10px">
+                    <button type="submit">提交回复</button>
+                </div>
+            </form>
+        </div>
+        <div class="span1">
+        </div>
+        <div class="span2">
+            <ul class="nav nav-list" style="margin-top:50px">
+                <li class="nav-header">
+                </li>
+                <li>
+                    <a href="/home/?userid={{userid}}">首页</a>
+                </li>
+                <li>
+                    <a href="/questionlist/?userid={{userid}}">问题列表</a>
+                </li>
+                <li class="nav-header">
+                </li>
+                <li>
+                    <a href="/userinfo/?userid={{userid}}">个人资料</a>
+                </li>
+                <li>
+                    <a href="/myfocus/?userid={{ userid }}">关注列表</a>
+                </li>
+                <li>
+                    <a href="/noticelist/?userid={{userid}}">消息通知</a>
+                </li>
+                <li>
+                    <a href="/logout/">退出</a>
+                </li>
+                <li class="divider">
+                </li>
+            </ul>
+        </div>
+        <div class="span2">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span1">
+        </div>
+        <div class="span6">
+
+        </div>
+        <div class="span5">
+        </div>
+    </div>
+</div>
+</body>
+</html>

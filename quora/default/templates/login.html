@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="/static/libs/bootstrap/2.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+   #loginbox {
+        /* Size and position */
+        width: 340px;
+        margin: 60px auto 30px;
+        padding: 15px;
+        position: relative;
+
+        /* Styles */
+        background: rgb(247,247,247);
+        border-radius: 1px solid rgba(147, 184, 189,0.8);
+        color:#9D9D9D;
+        box-shadow:
+            0pt 2px 5px rgba(105, 108, 109,  0.7),
+            0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+        border-radius: 5px;
+    }
+    </style>
+    <script src="/static/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/2.0.0/js/bootstrap.min.js"></script>
+    <title>login</title>
+
+</head>
+<body  background="/static/img/背景.png">
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <img alt="140x140" src="/static/img/标头.jpg"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+        </div>
+        <div class="span4" align="center">
+        <div align="center" style="background-color:white;padding-top:10px;padding-bottom:15px "  id="loginbox">
+            <form class="form-horizontal" method="post">
+                {% csrf_token %}
+                <h2>登 录</h2>
+                <br>
+
+                <p>
+                     邮箱:   <input id="inputEmail" name="email" type="text"/>
+                </p>
+                <p>
+                     密码:  <input id="inputPassword" name="password" type="password"/>
+                </p>
+                </br>
+                    <button type="submit"  class="btn btn-primary">登录</button>
+                </br>
+                </br>
+                <p>
+                    还没有账号？ <a href="/signup/">注册</a>
+                </p>
+
+            </form>
+        </div>
+        </div>
+        <div class="span4">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

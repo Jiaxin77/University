@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hotquestion</title>
+    <link href="/static/libs/bootstrap/2.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/2.0.0/js/bootstrap.min.js"></script>
+</head>
+<body background="/static/img/背景.png">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span1">
+        </div>
+        <div class="span10">
+            <img alt="140x140" src="/static/img/标头.jpg"/>
+            <div class="carousel slide" id="carousel-661546">
+                <ol class="carousel-indicators">
+                    <li class="active" data-slide-to="0" data-target="#carousel-661546">
+                    </li>
+                    <li data-slide-to="1" data-target="#carousel-661546">
+                    </li>
+                    <li data-slide-to="2" data-target="#carousel-661546">
+                    </li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img alt="" src="/static/img/banner1.jpg"/>
+                        <div class="carousel-caption">
+                            <h4>
+                                Q&A系统
+                            </h4>
+                            <p>
+                                Q&A系统实现了以下功能：关注其他用户，提问问题，回答他人的问题。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="" src="/static/img/banner2.jpg"/>
+                        <div class="carousel-caption">
+                            <h4>
+                               北京邮电大学
+                            </h4>
+                            <p>
+                               北京邮电大学是一所以信息科技为特色、工学门类为主体、工管文理协调发展的多科性大学,是我国信息科技人才的重要培养基地。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="" src="/static/img/banner3.jpg"/>
+                        <div class="carousel-caption">
+                            <h4>
+                                 Django
+                            </h4>
+                            <p>
+                                Django is a high-level Python Web framework that encourages rapid development and clean,
+                                pragmatic design.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <a data-slide="prev" href="#carousel-661546" class="left carousel-control">‹</a>
+                <a data-slide="next" href="#carousel-661546" class="right carousel-control">›</a>
+                <div class="span1">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span1">
+        </div>
+        <div class="span2">
+            <ul class="nav nav-list">
+                <li class="nav-header">
+                </li>
+                <li class="active">
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="/questionlist/?userid={{userid}}">问题列表</a>
+                </li>
+                <li class="nav-header">
+                </li>
+                <li>
+                    <a href="/userinfo/?userid={{userid}}">个人资料</a>
+                </li>
+                <li>
+					<a  href="/myfocus/?userid={{ userid }}">关注列表</a>
+				</li>
+                <li>
+                    <a href="/noticelist/?userid={{userid}}">消息通知</a>
+                </li>
+                <li>
+                    <a href="/logout/">退出</a>
+                </li>
+                <li class="divider">
+                </li>
+            </ul>
+        </div>
+        <div class="span1">
+        </div>
+        <div class="span7">
+            <h3>
+                热门问题
+            </h3>
+             <table class="table" style="table-layout:fixed">
+				<thead>
+					<tr>
+						<th width="40%" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+							问题
+						</th>
+						<th width="20%" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+							提问者
+						</th>
+						<th width="40%" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+							提交时间
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+                {% for q in hotqlist %}
+					<tr>
+						<td width="40%" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+							<a href="/questiondetail/?questionid={{q.id}}&&userid={{userid}}">
+                            {{ q.title }}
+							</a>
+						</td>
+						<td width="20%" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                            {{ q.authorname }}
+						</td>
+						<td width="40%" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                            {{ q.publish_date }}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+            <p>
+                <div class="pull-right">
+                <a class="btn btn-primary"  href="/questionlist/?userid={{userid}}">查看更多 »</a>
+                </div>
+            </p>
+        </div>
+        <div class="span1">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>editAccount</title>
+    <link href="/static/libs/bootstrap/2.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/2.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var Flag=$("#sexvalue").val();
+            //根据值让option选中
+            if(Flag=="男"){
+                $("#sexshow option[value='"+Flag+"']").attr("selected","selected");
+            }else if(Flag=="女"){
+                $("#sexshow option[value='"+Flag+"']").attr("selected","selected");
+            }else if(Flag=="未知"){
+                $("#sexshow option[value='"+Flag+"']").attr("selected","selected");
+            }
+
+            var Flag2=$("#eduvalue").val();
+            //根据值让option选中
+            if(Flag2=="高中及以下"){
+                $("#edushow option[value='"+Flag2+"']").attr("selected","selected");
+            }else if(Flag2=="大学本科"){
+                $("#edushow option[value='"+Flag2+"']").attr("selected","selected");
+            }else if(Flag2=="大学专科"){
+                $("#edushow option[value='"+Flag2+"']").attr("selected","selected");
+            }else if(Flag2=="硕士研究生"){
+                $("#edushow option[value='"+Flag2+"']").attr("selected","selected");
+            }else if(Flag2=="博士研究生及以上"){
+                $("#edushow option[value='"+Flag2+"']").attr("selected","selected");
+            }
+            });
+
+    </script>
+</head>
+<body background="/static/img/背景.png">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <img  alt="140x140" src="/static/img/标头.jpg"/>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span4">
+
+        </div>
+        <div class="span4">
+            <div align="center">
+            <img class="img-circle"  src="/static/img/头像.jpg" style="height: 142px;width:142px;"/>
+                <br>
+                <br>
+                <form role="form" method="post">
+                     {% csrf_token %}
+                    <p>
+                        昵称：<input type="text" name="username" value="{{userbase.username}}" disabled="disabled"/>
+                    </p>
+                    <p>
+                        邮箱： <input type="text" name="email" value="{{userbase.email}}" disabled="disabled"/>
+                    </p>
+
+                    <p>
+                    <div class="form-group">
+                        性别：<input type="hidden" id="sexvalue" value="{{userextend.sex}}"/>
+                        <select class="form-control" id="sexshow" name="sex" >
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            <option value="未知">未知</option>
+                        </select>
+                    </div>
+                    </p>
+
+                    <p>
+                        <div class="form-group">
+                            学历：<input type="hidden" id="eduvalue" value="{{userextend.edubackground}}"/>
+                            <select class="form-control" name="edubackground" id="edushow">
+                                <option value="高中及以下">高中及以下</option>
+                                <option value="大学本科">大学本科</option>
+                                <option value="大学专科">大学专科</option>
+                                <option value="硕士研究生">硕士研究生</option>
+                                <option value="博士研究生及以上">博士研究生及以上</option>
+                            </select>
+                        </div>
+                    </p>
+
+                    <p>
+                        <input type="text" class="form-control" name="intro" value="{{userextend.intro}}" style="height: 142px;width: 300px;" placeholder="个人简介..."/>
+                    </p>
+                    <button class="btn btn-center" type="submit">提交</button>
+                </form>
+
+            </div>
+        </div>
+        <div class="span4">
+        </div>
+    </div>
+</div>
+</body>
+</html>

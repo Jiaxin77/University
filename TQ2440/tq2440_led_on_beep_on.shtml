@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0053)http://192.168.1.8/beep.cgi?BEEP=BEEPON&button=SEND -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>TQ2440控制</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<!--<style type="text/css">
+</style>-->
+<style type="text/css">
+.ul1{margin:0;padding:0; list-style:none;}
+.li1{margin:0;padding:0; list-style:none;}
+.menu{width:1000px;height:48px;margin:0 auto; background:url(image/tab.jpg) repeat-x; }
+.menu ul{width:1000px;float:left;height:48px;display:inline;}
+.menu ul li{width:200px;height:48px; line-height:48px; text-align:center; float:left;display:inline; }
+.menu ul li a{width:200px;height:48px; float:left;text-decoration:none; color:#fff; font-size:18px;font-weight:bold;}
+.menu ul li a:hover{ background:#FF0000 repeat-x; }		
+
+.logo{}
+.bodystyle{ width:1000px; margin:0 auto;  background:#d5d5d7;}
+
+</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div align="center">
+					<img src="image/banner.gif" style="width:1100px;height:100px;">
+				</div>
+			</div>
+		</div>
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="col-md-2 column">
+				</div>
+				<div class="col-md-8 column">
+					<ul class="nav nav-pills" >
+						<li >
+							<a href="index.html">主页</a>
+						</li>
+						<li >
+							<a href="tq2440_cond.shtml">系统状态</a>
+						</li>
+						<li class="active">
+							<a href="tq2440_led_off_beep_off.shtml">LED/BEEP控制</a>
+						</li>
+						<li>
+							<a href="tq2440_adc.shtml">ADC变阻器读数</a>
+						</li>
+						<li >
+							<a href="tq2440_rtc.shtml">RTC实时时钟</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-2 column">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<p>
+	<div align="center">
+		<br>此页面用来控制开发板上的LED和蜂鸣器，选择LED1或BEEP的状态<br><br>
+	</div>
+</p>
+<div>
+	<div>
+		<div style="background-color:#7D9EC0;color:#fff;">
+			<h3 style="font-family:隶书" >
+				<span >TQ2440开发板网页LED控制</span>
+			</h3>
+		</div>
+		<div>
+			<form method="get" action="/leds.cgi">
+				<div class="row clearfix">
+					<div class="col-md-4 column">
+					</div>
+					
+					<div class="col-md-4 column"  align="center">
+						LED1:<br>
+						      <input type="radio" name="LED1" value="LED1ON" id="LED1_0" checked="">ON
+      						  <input name="LED1" type="radio" id="LED1_1" value="LED1OFF">OFF<br>
+					</div>
+					<div class="col-md-4 column">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-md-4 column">
+					</div>
+					<div class="col-md-4 column"  align="center">
+						<input type="submit" name="button2" id="button2" value="SEND">
+					</div>
+					<div class="col-md-4 column">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div>
+		<div style="background-color:#7D9EC0;color:#fff;">
+			<h3 style="font-family:隶书" >
+				<span >TQ2440开发板网页蜂鸣器(BEEP)控制</span>
+			</h3>
+		</div>
+		<div>
+			<form method="get" action="/beep.cgi">
+				<div class="row clearfix">
+					<div class="col-md-4 column">
+					</div>
+					<div class="col-md-4 column"  align="center">
+						BEEP:<br>
+ 						<input type="radio" name="BEEP" value="BEEPON" id="BEEP_0" checked="">ON 
+ 						<input name="BEEP" type="radio" id="BEEP_1" value="BEEPOFF">OFF<br> <br>
+					</div>
+					<div class="col-md-4 column">
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-md-4 column">
+					</div>
+					<div class="col-md-4 column" align="center">
+						<input type="submit" name="button" id="button" value="SEND"> 
+					</div>
+					<div class="col-md-4 column">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
+<script type="https://code.jquery.com/jquery.js"></script>
+
+</body>
+</html>
