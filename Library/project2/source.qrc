@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/new/myimage">
+        <file>image/1background.png</file>
+        <file>image/button.png</file>
+        <file>image/tc.png</file>
+        <file>image/dl.png</file>
+        <file>image/2background.png</file>
+        <file>image/admbg.png</file>
+        <file>image/usepo.png</file>
+    </qresource>
+</RCC>
