@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>download</title>
+	<script src="/static/js/jquery.min.js" type="text/javascript"></script>
+	<script type="/text/javascript" src="/static/js/download.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/download.css">
+</head>
+<style>
+    #myDiv{
+	width: 80%;
+	overflow: scroll;
+	height: 300px;
+	margin: 0 auto;
+}
+
+
+#tableExcel{
+	width: 350px;
+    height:300px;
+	overflow: scroll;
+	margin-top: 50px;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+
+</style>
+
+<script>
+
+   /* $.get("{% url 'downloadIndex' %}", function(Opt_table)
+	{
+        console.log(Opt_table.length);
+    })*/
+
+/*
+$.get("{% url 'downloadIndex' %}", function(Opt_table)
+	{
+		var i=0;
+		//var Opt_table=JSON.parse(Opt_table);
+		//for data in  Opt_table
+		console.log(Opt_table.length);
+
+		for (var i=0;i<Opt_table.length;i++)
+	/*		i++;
+			insertRow=document.getElementById("tableExcel").insertRow(i);
+			var x=insertRow.insertCell(0);//插到此行第0列
+			var y=insertRow.insertCell(1);
+			var z=insertRow.insertCell(2);
+			x.innerHTML={{data.sector_id }};
+			y.innerHTML={{data.earfcn }};
+			z.innerHTML={{data.cell_type}};
+		}
+*/
+
+
+
+	//})
+
+
+
+
+/*
+	function getTable(){
+	//清空表格
+	/*var tb = document.getElementById('tableExcel');
+	tb.innerHTML=''*/
+	//增加标题
+	/*var tableName;
+	var thisTable=document.getElementById('tableExcel');
+	tableName=document.getElementById("txt_ide").value;
+	var tableTitle=thisTable.createCaption("tableTitle");
+	// $("#tableTitle").html(tableName);
+	tableTitle.innerHTML=tableName;
+	if(tableName=="tbATUHandOver")
+	{
+	var trNode=thisTable.insertRow(0);
+	var tdNode0=trNode.insertCell(0);
+	var tdNode1=trNode.insertCell(1);
+	var tdNode2=trNode.insertCell(2);
+	trNode.style.background="#A7C942";
+	tdNode0.innerHTML="SSECTOR_ID";
+	tdNode1.innerHTML="NSECTOR_ID";
+	tdNode2.innerHTML="HOATT";
+	}
+	else if(tableName=="tbOptCell")
+	{
+	var trNode=thisTable.insertRow(0);
+	var tdNode0=trNode.insertCell(0);
+	var tdNode1=trNode.insertCell(1);
+	var tdNode2=trNode.insertCell(2);
+	trNode.style.background="#A7C942";
+	tdNode0.innerHTML="SSECTOR_ID";
+	tdNode1.innerHTML="EARFCN";
+	tdNode2.innerHTML="CELL_TYPE";
+	}
+	else if(tableName=="tbAdjCell")
+	{
+	var trNode=thisTable.insertRow(0);
+	var tdNode0=trNode.insertCell(0);
+	var tdNode1=trNode.insertCell(1);
+	var tdNode2=trNode.insertCell(2);
+	var tdNode3=trNode.insertCell(3);
+	trNode.style.background="#A7C942";
+	tdNode0.innerHTML="S_SECTOR_ID";
+	tdNode1.innerHTML="N_SECTOR_ID";
+	tdNode2.innerHTML="S_EARFCN";
+	tdNode3.innerHTML="N_EARFCN";
+	}
+	//getInfo();
+	}
+*/
+
+	$(function(){
+	var timer = function(){
+	};
+
+	$(".nav>li").hover(function(){
+	clearTimeout(timer);
+	$(this).children('ul').stop(true, true).show();
+	}, function(){
+	var self = $(this);
+	timer = setTimeout(function(){
+	self.children('ul').stop(true,true).hide();
+	}, 100);
+	});
+	});
+</script>
+<body>
+	
+	<div id="content">
+
+
+		<!--DEMO start-->
+		<div class="menu">
+			<div class="logo">
+				TD-LTE
+			</div>
+			<ul class="nav">
+
+
+				<li><a {% url 'searchCellIndex' %}>数据管理</a>
+					<ul class="sub-nav">
+						<li><a href={% url 'upTbCellIndex' %}>数据导入</a></li>
+						<li><a href={% url 'previewIndex' %}>数据导出</a></li>
+
+					</ul>
+				</li>
+				<li><a {% url 'searchCellIndex' %}>数据查询</a>
+					<ul class="sub-nav">
+						<li><a href={% url 'searchCellIndex' %}>小区配置信息查询</a></li>
+						<li><a href={% url 'searchEnodebIndex' %}>基站eNodeB查询</a></li>
+						<li><a href={% url 'searchKPIIndex' %}>KPI指标查询</a></li>
+						<li><a href={% url 'searchPRBIndex'%}>PRB信息查询</a></li>
+
+					</ul>
+				</li>
+				<li><a href={% url 'analy3cellIndex'%}>数据分析</a>
+					<ul class="sub-nav">
+						<li><a href={% url 'analy3cellIndex'%}>查询重叠覆盖干扰三元组</a></li>
+						<li><a href={% url 'analyC2IIndex'%}>主邻小区C2I干扰分析</a></li>
+
+					</ul>
+				</li>
+			</ul>
+			<div id="out">
+				<a href={% url 'loginIndex' %} >Log Out</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="info">
+		<div class="chooseTable">
+            <form action="/preview/" method="post">
+                <label>请选择需要导出的表格：</label>
+                <input type="text" id="txt_ide" list="ide" name="down_file" autocomplete="off"/>
+                <datalist id="ide">
+                    <option value="tbATUHandOver" />
+                    <option value="tbOptCell" />
+                    <option value="tbATUC2I" />
+                </datalist>
+
+                <button type="submit" id="okTable" onclick="getTable()">预览</button>
+            </form>
+            <form action="/download/" method="post">
+                        <input type="hidden" name="down_file" value={{ tb_Name }} >
+                        <button type="submit" id="excel" onclick="getTablebyName()">确认下载</button>
+                    </form>
+		</div>	
+		<div class="save">
+	<!--	<input type="text" name="src" id="fileSrc" placeholder="文件路径...">
+	??????????????????????????????????????
+		<input type="submit" name="saveButton" id="saveButton" value="保存">-->
+
+
+
+
+
+
+		<div class="preview">
+
+			<div class="box">
+				<div>
+						<button type="button" id="excelBtn">导出Excel</button>
+				</div>
+
+				<div id="myDiv">
+					<table id="tableExcel"  border="1" >
+						<!-- caption元素可以生成表标题，其单元格列跨度为表格的列数 -->
+
+          <!--  <tr>
+                
+                <th rowspan="1">a小区ID</th>
+                <th rowspan="1">b小区ID</th>
+                <th rowspan="1">c小区ID</th>
+              
+            </tr>
+            <tr>
+                <td>123</td>
+                <td>345</td>
+                <td>567</td>
+ 
+            </tr>-->
+             <p>共有{{ tb_length }}条数据
+
+                {% if tb_Name == "tbOptCell"%}
+                        <caption>tbOptCell</caption>
+                        <tr>
+                            <th>SECTOR_ID</th>
+                            <th>EARFCN</th>
+                            <th>CELL_TYPE</th>
+                        </tr>
+						{% for data in Opt_table %}
+							<tr>
+								<td>{{data.sector_id }}</td>
+								<td>{{data.earfcn}}</td>
+								<td>{{data.cell_type}}</td>
+							</tr>
+						{% empty %}
+								<p>表中无数据</p>
+						{% endfor%}
+                {% elif tb_Name == "tbATUC2I" %}
+                        <caption>tbATUC2I</caption>
+                        <tr>
+                            <th>SECTOR_ID</th>
+                            <th>NCELL_ID</th>
+                            <th>RATIO_ALL</th>
+							<th>RANK</th>
+                            <th>COSTIE</th>
+                        </tr>
+						{% for data in ATUC2I_table %}
+							<tr>
+								<td>{{data.sector_id }}</td>
+                                <td>{{data.ncell_id}}</td>
+								<td>{{data.ratio_all}}</td>
+								<td>{{data.rank}}</td>
+                                <td>>{{data.costie}}</td>
+							</tr>
+						{% empty %}
+								<p>表中无数据</p>
+						{% endfor%}
+                {% elif tb_Name == "tbATUHandOver" %}
+                        <caption>tbATUHandOver</caption>
+                        <tr>
+
+                            <th>SSECTOR_ID</th>
+                            <th>NSECTOR_ID</th>
+                            <th>HOATT</th>
+
+                        </tr>
+						{% for data in ATU_table %}
+							<tr>
+								<td>{{ data.ssector_id }}</td>
+                                <td>{{ data.nsector_id }}</td>
+								<td>{{ data.hoatt }}</td>
+							</tr>
+						{% empty %}
+								<p>表中无数据</p>
+						{% endfor%}
+
+
+                {% endif %}
+
+
+            
+        </table>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!--DEMO end-->
+
+
+
+
+</body>
+
+<script>
+	function getTable(){
+		var table_name=document.getElementById('txt_ide').value;
+		console.log(table_name);
+		if (table_name!="tbATUHandOver"&&table_name!="tbOptCell"&&table_name!="tbATUC2I")
+		{
+			alert("表名错误！");
+		}
+	}
+</script>
+
+<script>
+	document.getElementById('excelBtn').onclick = () => {
+		exportExcel.exports(tableExcel);
+	};
+	class ExportExcel {
+		constructor() {
+			this.idTmr = null;
+			this.uri = 'data:application/vnd.ms-excel;base64,';
+			this.template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';      
+		}
+		getBrowser() {
+			var explorer = window.navigator.userAgent;
+            //ie
+            if (explorer.indexOf("MSIE") >= 0) {
+            	return 'ie';
+            }
+            //firefox
+            else if (explorer.indexOf("Firefox") >= 0) {
+            	return 'Firefox';
+            }
+            //Chrome
+            else if (explorer.indexOf("Chrome") >= 0) {
+            	return 'Chrome';
+            }
+            //Opera
+            else if (explorer.indexOf("Opera") >= 0) {
+            	return 'Opera';
+            }
+            //Safari
+            else if (explorer.indexOf("Safari") >= 0) {
+            	return 'Safari';
+            }
+        };
+        exports(tableid) {
+        	if (this.getBrowser() == 'ie') {
+        		var curTbl = document.getElementById(tableid);
+        		var oXL = new ActiveXObject("Excel.Application");
+        		var oWB = oXL.Workbooks.Add();
+        		var xlsheet = oWB.Worksheets(1);
+        		var sel = document.body.createTextRange();
+        		sel.moveToElementText(curTbl);
+        		sel.select();
+        		sel.execCommand("Copy");
+        		xlsheet.Paste();
+        		oXL.Visible = true;
+
+        		try {
+        			var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+        		} catch (e) {
+        			alert(e);
+        		} finally {
+        			oWB.SaveAs(fname);
+        			oWB.Close(savechanges = false);
+        			oXL.Quit();
+        			oXL = null;
+        			this.idTmr = window.setInterval("Cleanup();", 1);
+        		}
+        	} else {
+        		this.openExport(tableid)
+        	}
+        };
+        openExport(table, name) {
+        	if (!table.nodeType) {
+        		table = document.getElementById(table)
+        	}
+        	var ctx = {
+        		worksheet: name || 'Worksheet',
+        		table: table.innerHTML
+        	};
+        	window.location.href = this.uri + this.base64(this.format(this.template, ctx));
+        };
+        base64(s) {
+        	return window.btoa(unescape(encodeURIComponent(s)))
+        };
+        format(s, c) {
+        	return s.replace(/{(\w+)}/g, function (m, p) {
+        		return c[p];
+        	});
+        };
+    }
+    var exportExcel = new ExportExcel();
+</script>
+
+</html>
